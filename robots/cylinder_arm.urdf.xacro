@@ -1,0 +1,277 @@
+<?xml version="1.0"?>
+<robot xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:gazebo="http://playerstage.sourceforge.net/gazebo/xmlschema/#gz"
+    xmlns:model="http://playerstage.sourceforge.net/gazebo/xmlschema/#model"
+    xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+    xmlns:body="http://playerstage.sourceforge.net/gazebo/xmlschema/#body"
+    xmlns:geom="http://playerstage.sourceforge.net/gazebo/xmlschema/#geom"
+    xmlns:joint="http://playerstage.sourceforge.net/gazebo/xmlschema/#joint"
+    xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+    xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+    xmlns:rendering="http://playerstage.sourceforge.net/gazebo/xmlschema/#rendering"
+    xmlns:renderable="http://playerstage.sourceforge.net/gazebo/xmlschema/#renderable"
+    xmlns:physics="http://playerstage.sourceforge.net/gazebo/xmlschema/#physics"
+    xmlns:xacro="http://ros.org/wiki/xacro" name="jaco">
+    <!-- Import Transmissions -->
+    <xacro:include filename="$(find jaco_description)/urdf/jaco.transmission.xacro" />
+
+    <xacro:arg name="hardware_interface" default="PositionJointInterface"/>
+    <xacro:include filename="$(find jaco_description)/urdf/jaco_arm.urdf.xacro" />
+
+
+    <link name="world"/>
+
+    <link name="support">
+	<inertial>
+	    <mass value="10000"/>
+	    <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100"/>
+	    <origin/>
+	</inertial>
+
+	<visual>
+	    <origin xyz="0 0 0.005" rpy="0 0 0" />
+	    <geometry>
+		<cylinder length="0.01" radius="0.1"/>
+	    </geometry>
+	</visual>
+
+	<collision>
+	    <origin xyz="0 0 0.005" rpy="0 0 0" />
+	    <geometry>
+		<cylinder length="0.01" radius="0.1"/>
+	    </geometry>
+	</collision>
+    </link>
+
+    <joint name="support_joint" type="fixed">
+	<parent link="world" />
+	<child link="support" />
+    </joint>
+
+    <xacro:jaco_arm hardware_interface="$(arg hardware_interface)" parent="support" xyz="0 0 0.2" rpy="0 0 0" />
+
+    <link name="init_sphere">
+	<inertial>
+	    <origin xyz="0 0 0" rpy="0 0 0"/>
+	    <mass value="1"/>
+	    <inertia ixx="0.01"  ixy="0"  ixz="0" iyy="0.01" iyz="0" izz="0.01" />
+	</inertial>
+
+	<visual>
+	    <origin xyz="-0.103 -0.364 0.133" rpy="0 0 0"/>
+	    <geometry>
+		<sphere radius="0.03"/>
+	    </geometry>
+	    <material name="Orange">
+		<color rgba="${255/255} ${108/255} ${10/255} 1.0"/>
+	    </material>
+	</visual>
+    </link>
+
+    <joint name="init_sphere_joint" type="fixed">
+	<origin xyz="0 0 0" rpy="0 0 0"/>
+	<parent link="jaco_link_base"/>
+	<child link="init_sphere"/>
+    </joint>
+
+    <link name="init_sphere_ee1">
+	<inertial>
+	    <origin xyz="0 0 0" rpy="0 0 0"/>
+	    <mass value="1"/>
+	    <inertia ixx="0.01"  ixy="0"  ixz="0" iyy="0.01" iyz="0" izz="0.01" />
+	</inertial>
+
+	<visual>
+	    <origin xyz="0.0702 -0.39915 0.00462" rpy="0 0 0"/>
+	    <geometry>
+		<sphere radius="0.003"/>
+	    </geometry>
+	    <material name="Orange">
+		<color rgba="${255/255} ${108/255} ${10/255} 1.0"/>
+	    </material>
+	</visual>
+    </link>
+
+    <joint name="init_sphere_ee1_joint" type="fixed">
+	<origin xyz="0 0 0" rpy="0 0 0"/>
+	<parent link="jaco_link_base"/>
+	<child link="init_sphere_ee1"/>
+    </joint>
+
+    <link name="init_sphere_ee2">
+	<inertial>
+	    <origin xyz="0 0 0" rpy="0 0 0"/>
+	    <mass value="1"/>
+	    <inertia ixx="0.01"  ixy="0"  ixz="0" iyy="0.01" iyz="0" izz="0.01" />
+	</inertial>
+
+	<visual>
+	    <origin xyz="0.06492 -0.31939 0.00054" rpy="0 0 0"/>
+	    <geometry>
+		<sphere radius="0.003"/>
+	    </geometry>
+	    <material name="Orange">
+		<color rgba="${255/255} ${108/255} ${10/255} 1.0"/>
+	    </material>
+	</visual>
+    </link>
+
+    <joint name="init_sphere_ee2_joint" type="fixed">
+	<origin xyz="0 0 0" rpy="0 0 0"/>
+	<parent link="jaco_link_base"/>
+	<child link="init_sphere_ee2"/>
+    </joint>
+
+    <link name="init_sphere_ee3">
+	<inertial>
+	    <origin xyz="0 0 0" rpy="0 0 0"/>
+	    <mass value="1"/>
+	    <inertia ixx="0.01"  ixy="0"  ixz="0" iyy="0.01" iyz="0" izz="0.01" />
+	</inertial>
+
+	<visual>
+	    <origin xyz="0.00196 -0.36204 0.03404" rpy="0 0 0"/>
+	    <geometry>
+		<sphere radius="0.003"/>
+	    </geometry>
+	    <material name="Orange">
+		<color rgba="${255/255} ${108/255} ${10/255} 1.0"/>
+	    </material>
+	</visual>
+    </link>
+
+    <joint name="init_sphere_ee3_joint" type="fixed">
+	<origin xyz="0 0 0" rpy="0 0 0"/>
+	<parent link="jaco_link_base"/>
+	<child link="init_sphere_ee3"/>
+    </joint>
+
+    <link name="ee_sphere">
+	<inertial>
+	    <origin xyz="0 0 0" rpy="0 0 0"/>
+	    <mass value="1"/>
+	    <inertia ixx="0.01"  ixy="0"  ixz="0" iyy="0.01" iyz="0" izz="0.01" />
+	</inertial>
+
+	<visual>
+	    <origin xyz="0 0 0" rpy="0 0 0"/>
+	    <geometry>
+	        <sphere radius="0.03"/>
+	    </geometry>
+	    <material name="Green">
+		<color rgba="0.0 0.8 0.0 1.0"/>
+	    </material>
+	</visual>
+    </link>
+
+    <joint name="jaco_tool0_joint" type="fixed">
+	<parent link="jaco_link_hand"/>
+        <child link="ee_sphere"/>
+        <origin xyz="0 0 -0.165" rpy="0 0 0"/>
+    </joint>
+
+    <link name="jaco_link_ee_point1">
+      <visual>
+        <origin xyz="0.04 -0.10 -0.19" rpy="0 0 0"/>
+        <geometry>
+          <sphere radius="0.003"/>
+        </geometry>
+        <material name="Black"/>
+      </visual>
+    </link>
+
+    <joint name="jaco_ee_joint1" type="fixed">
+      <parent link="jaco_link_hand"/>
+      <child link="jaco_link_ee_point1"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <link name="jaco_link_ee_point2">
+      <visual>
+        <origin xyz="-0.04 -0.10 -0.19" rpy="0 0 0"/>
+        <geometry>
+          <sphere radius="0.003"/>
+        </geometry>
+        <material name="Black"/>
+      </visual>
+    </link>
+
+    <joint name="jaco_ee_joint2" type="fixed">
+      <parent link="jaco_link_hand"/>
+      <child link="jaco_link_ee_point2"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <link name="jaco_link_ee_point3">
+      <visual>
+        <origin xyz="0 -0.08 -0.12" rpy="0 0 0"/>
+        <geometry>
+          <sphere radius="0.003"/>
+        </geometry>
+        <material name="Black"/>
+      </visual>
+    </link>
+
+    <joint name="jaco_ee_joint3" type="fixed">
+      <parent link="jaco_link_hand"/>
+      <child link="jaco_link_ee_point3"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <gazebo reference="init_sphere">
+	<turnGravityOff>true</turnGravityOff>
+	<material>Gazebo/Red</material>
+	<mu1>0.2</mu1>
+	<mu2>0.2</mu2>
+    </gazebo>
+
+    <gazebo reference="init_sphere_ee1">
+	<turnGravityOff>true</turnGravityOff>
+	<material>Gazebo/Blue</material>
+	<mu1>0.2</mu1>
+	<mu2>0.2</mu2>
+    </gazebo>
+
+    <gazebo reference="init_sphere_ee2">
+	<turnGravityOff>true</turnGravityOff>
+	<material>Gazebo/Blue</material>
+	<mu1>0.2</mu1>
+	<mu2>0.2</mu2>
+    </gazebo>
+
+    <gazebo reference="init_sphere_ee3">
+	<turnGravityOff>true</turnGravityOff>
+	<material>Gazebo/Blue</material>
+	<mu1>0.2</mu1>
+	<mu2>0.2</mu2>
+    </gazebo>
+
+    <gazebo reference="ee_sphere">
+	<turnGravityOff>true</turnGravityOff>
+	<material>Gazebo/Green</material>
+	<mu1>0.2</mu1>
+	<mu2>0.2</mu2>
+    </gazebo>
+
+    <gazebo reference="jaco_link_ee_point1">
+	<turnGravityOff>true</turnGravityOff>
+	<material>Gazebo/Black</material>
+	<mu1>0.2</mu1>
+	<mu2>0.2</mu2>
+    </gazebo>
+
+    <gazebo reference="jaco_link_ee_point2">
+	<turnGravityOff>true</turnGravityOff>
+	<material>Gazebo/Black</material>
+	<mu1>0.2</mu1>
+	<mu2>0.2</mu2>
+    </gazebo>
+
+    <gazebo reference="jaco_link_ee_point3">
+	<turnGravityOff>true</turnGravityOff>
+	<material>Gazebo/Black</material>
+	<mu1>0.2</mu1>
+	<mu2>0.2</mu2>
+    </gazebo>
+
+</robot>
